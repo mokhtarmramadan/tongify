@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' BaseModel class that defines 
+''' BaseModel class that defines
 all common attributes/methods for other classes'''
 import models
 import uuid
@@ -9,8 +9,9 @@ from datetime import datetime
 class BaseModel():
     ''' The super class that all the other classes will inhurt from '''
     def __init__(self, *args, **kwargs):
-        ''' intializes class attributes either using a dictionary passed to it (kwargs)
-        or by just taking an instance of the class '''
+        ''' intializes class attributes either using a dictionary
+        passed to it (kwargs) or by just taking an instance of
+        the class '''
         if kwargs:
             for k, v in kwargs.items():
                 if k == '__class__':
@@ -24,7 +25,7 @@ class BaseModel():
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
-     
+
     def save(self):
         ''' Updates the public instance attribute updated_at
         to the current time '''
@@ -42,7 +43,3 @@ class BaseModel():
     def __str__(self):
         ''' Returns a string representation of the class '''
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
-    
-
-
-    

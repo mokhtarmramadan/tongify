@@ -126,7 +126,6 @@ class tongfiyCommand(cmd.Cmd):
             print("** value missing **")
         else:
             key = f"{input_list[0]}.{input_list[1]}"
-            obj_dict = models.storage.all()
             obj = models.storage.all().get(key, 0)
             if not obj:
                 print("** no instance found **")

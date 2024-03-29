@@ -1,8 +1,10 @@
 ''' A user class that inhurts from BaseModel '''
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     ''' User class '''
+
     username = ''
     email = ''
     followers = 0

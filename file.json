@@ -1,15 +1,15 @@
 {
-    "BaseModel.1": {
-        "id": "5",
-        "created_at": "2024-03-29T15:30:49.385938",
-        "updated_at": "2024-03-29T15:30:49.385945",
-        "name": "yo",
-        "__class__": "BaseModel"
+    "User.d8ceeacb-259d-4567-8554-6bfc689bca9d": {
+        "id": "1",
+        "created_at": "2024-03-29T16:12:28.610470",
+        "updated_at": "2024-03-29T16:12:28.610474",
+        "name": "Mokhtar",
+        "__class__": "User"
     },
-    "BaseModel.24612e20-fa68-4d5e-9de5-5aca32351b75": {
-        "id": "24612e20-fa68-4d5e-9de5-5aca32351b75",
-        "created_at": "2024-03-29T15:42:57.711117",
-        "updated_at": "2024-03-29T15:42:57.711124",
+    "BaseModel.f21020bb-f309-44ae-a434-3f73b5617dd0": {
+        "id": "f21020bb-f309-44ae-a434-3f73b5617dd0",
+        "created_at": "2024-03-29T16:28:42.766173",
+        "updated_at": "2024-03-29T16:28:42.766177",
         "__class__": "BaseModel"
     }
 }
