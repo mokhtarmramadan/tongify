@@ -1,0 +1,5 @@
+create User username="Lund"
+create User username="Mokhtar"
+all User
+
+create Member user_id="0001" user_type="My_little_house" vacuum_id="0001" name="ho"

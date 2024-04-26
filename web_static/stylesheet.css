@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+body {
+    background-color: #1c1e21;
+    width: 100%;
+}
+
+nav {
+    background-color: #1c1e21;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #0866FF;
+}
+
+.nav__left {
+    display: flex;
+    align-items: center;
+}
+
+#search_icon {
+    height: 25px;
+}
+
+.nav__left img {
+    height: 40px;
+    object-fit: contain;
+    margin-right: 5px;
+}
+
+.nav__search {
+    display: flex;
+    align-items: center;
+    background-color: #34373a;
+    padding: 15px;
+    border-radius: 50px;
+    height: 40px;
+}
+
+.nav__search input {
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 0 10px;
+    color: white;
+}
+
+
+.nav__mid {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    padding: 10px 2.8vw;
+    border-radius: 5px;
+    color: #66676c;
+}
+
+.nav_icon {
+    height: 25px;
+    margin: 0 30px;
+}
+
+
+.icon:hover {
+    background-color: #34373a;
+    transition: ease-in-out 0.1s;
+}
+
+.nav__right {
+    display: flex;
+    align-items: center;
+}
+
+.nav__right span {
+    color: white;
+}
+.avatar {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border-radius: 50px;
+    padding: 5px 10px;
+}
+
+.avatar:hover {
+    background: #34373a;
+    transition: ease-in-out 0.1s;
+}
+
+.avatar__img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.buttons i {
+    padding: 10px;
+    margin: 0 1px;
+    border-radius: 50%;
+    background: #f1f2f6;
+}
+
+.buttons i:hover {
+    background: #D8D9DD;
+    transition: ease-in-out 0.1s;
+}
+
+.premium {
+
+   margin-left: 70px;
+    height: 30px;
+    border-radius: 28px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.premium:hover {
+    height: 30px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+@media only screen and (max-width:720px) {
+    .nav__right {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:938px) {
+
+    /* .nav__search {
+        border-radius: 50%;
+        padding: 10px;
+    }
+
+    .nav__search i {
+        border-radius: 50%;
+    }
+
+    .nav__search input {
+        display: none;
+    } */
+}
+
+@media only screen and (max-width:540px) {
+    .avatar {
+        display: none;
+    }
+}

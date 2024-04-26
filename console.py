@@ -3,6 +3,7 @@
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.post import Post
 import cmd
 import sys
 import re
@@ -26,13 +27,33 @@ def parse(input_string):
         ret_list = [item.strip(",") for item in lexer]
         ret_list.append(curly_braces.group())
         return ret_list
+    
+
+def split_check(input_str):
+    if '=' in input_str:
+        attribute, value = input_str.split("=")
+        value = value.replace("_", " ")
+        try:
+            value = int(value)
+        except ValueError:
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass
+        return attribute, value
+
+    else:
+        return None, None
 
 
 class tongfiyCommand(cmd.Cmd):
     ''' CMD class '''
 
     prompt = "(tongify) "
-    __classes = ['BaseModel', 'User', 'Vacuum']
+    __classes = ['BaseModel', 'User', 'Post']
 
     def do_quit(self, quit):
         ''' Exists the program'''
@@ -55,8 +76,18 @@ class tongfiyCommand(cmd.Cmd):
         elif input_list[0] not in tongfiyCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print(eval(input_list[0])().id)
-            models.storage.save()
+            obj = eval(input_list[0])()
+            if len(input_list) > 1:                
+                for input in input_list:
+                    attribute, value = split_check(input)
+                    if attribute is not None and value is not None:
+                        if hasattr(obj, attribute):
+                            setattr(obj, attribute, value)
+                print(obj.id)
+                obj.save()
+            else:
+                print(obj.id)
+                obj.save()
 
     def do_show(self, input_str):
         ''' Prints the string representation of an instance

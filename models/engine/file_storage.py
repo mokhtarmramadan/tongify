@@ -3,6 +3,8 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.post import Post
+
 
 class FileStorage:
     ''' serializes instances to a JSON file 
@@ -10,8 +12,15 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         ''' returns the dictionary __objects '''
+        if cls is not None:
+            class_objects = {}
+            class_name = cls.__name__
+            for k, v in FileStorage.__objects.items():
+                if class_name in k:
+                    class_objects[k] = v
+            return class_objects
         return FileStorage.__objects
     
     def new(self, obj):
@@ -39,3 +48,12 @@ class FileStorage:
                     self.new(eval(class_name)(**v))
         except FileNotFoundError:
             return
+
+    def delete(self, obj=None):
+        # Deletes an instence 
+        if obj is None:
+            return
+        print("remvoed object id ", obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        FileStorage.__objects.pop(key)
+        self.save()
