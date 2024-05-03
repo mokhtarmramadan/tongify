@@ -45,6 +45,8 @@ class BaseModel():
         dict_rep = self.__dict__.copy()
         if "_sa_instance_state" in dict_rep:
             del dict_rep["_sa_instance_state"]
+        if "password" in dict_rep:
+            del dict_rep["password"]
         dict_rep["__class__"] = self.__class__.__name__
         dict_rep["created_at"] = dict_rep["created_at"].isoformat()
         dict_rep["updated_at"] = dict_rep["updated_at"].isoformat()
