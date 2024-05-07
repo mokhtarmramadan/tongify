@@ -30,6 +30,13 @@ class DBStorage():
                     new_dict[key] = obj
         return (new_dict)
 
+
+    def user_id_by_email(self, user_email):
+        ''' Checks if the user already logged in before '''
+        user = self.__session.query(User).filter_by(email=user_email).first()
+        return user
+
+
     def new(self, obj):
         """add the object to the current database session"""
         self.__session.add(obj)
@@ -59,6 +66,14 @@ class DBStorage():
         return len(models.storage.all(cls))
     
     def get(self, cls, id):
+        " gets an object based on the id and cls name "
+        objects = models.storage.all(cls)
+        for v in objects.values():
+            if v.id == id:
+                return v
+        return None
+    
+    def check_session(self, cls, session_id):
         " gets an object based on the id and cls name "
         objects = models.storage.all(cls)
         for v in objects.values():

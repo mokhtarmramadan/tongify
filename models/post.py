@@ -8,9 +8,9 @@ class Post(BaseModel, Base):
     ''' Post class '''
     __tablename__ = 'posts'
 
-    title = Column(String(255), nullable=False)
-    content = Column(Text, nullable=False)
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    title = Column(String(35), nullable=False)
+    content = Column(String(140), nullable=False)
+    user_id = Column(String(17), ForeignKey('users.id'), nullable=False)
     
     # Define the relationship between User and Post
     user = relationship("User", back_populates="posts")

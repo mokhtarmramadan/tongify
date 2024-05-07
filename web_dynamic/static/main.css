@@ -21,7 +21,8 @@ body {
 
 .form-control {
   background-color: #34373a;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
+  color: white;
 }
 
 .form-control::placeholder {
@@ -33,6 +34,7 @@ body {
   background-color: #34373a;
   box-shadow: none;
   border-color: #198754 !important;
+  color: white;
 }
 
 .avatar {
@@ -60,37 +62,44 @@ body {
   color: #198754;
 }
 
-.navbar-brand:hover {
+.brand {
   color: white;
 }
-
 .navbar-toggler:focus {
   border: 1px solid #198754;
   box-shadow: none !important;
 }
 
 .navbar-toggler-icon {
-  background-image: url(controls.png);
+  background-image: url(images/controls.png);
 }
 
 .col {
   background-color: #34373a;
   color: aliceblue;
-  margin: 30px 0 0 30px !important;
   padding: 10px;
 }
 
 
+
+
 /* Post */
+
+
 .container {
-  margin-top: 78px;
+  margin-top: 75px;
   margin-bottom: 60px;
 }
 .media-body {
   background-color: #34373a;
   padding: 10px;
-  margin: 30px 0px 0px 30px;
   border: 1px solid #202327;
+  transition: all 0.5s ease;
+}
+
+.post_body:hover {
+  transform: scale(1.1);
+  border-color: #198754;
 }
 
 .article-metadata {
@@ -119,3 +128,48 @@ body {
 .article-content {
   color: white;
 }
+
+
+
+/* Profile  */
+
+.content-section {
+  margin: 10px;
+}
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.media-body.profile {
+  color: white;
+  max-width: 600px; /* Adjust the value as needed */
+  margin: 0 auto;
+}
+
+h2 .verification_badge {
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.edit-bio {
+  background-color: #4d5053;
+  border: none;
+  margin-bottom: 30px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.edit-bio:hover {
+  background-color: #66696c;
+}
+
+.find_me_links {
+  position: relative;
+  left: 30px;
+}
+

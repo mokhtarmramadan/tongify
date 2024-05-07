@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section profile">
+        <div class="media">
+            <div class="media-body profile">
+                <img class="rounded-circle account-img" src="{{ session['image'] }}">
+                <h2 class="account-heading">{{ session['username'] }} <img class="verification_badge" src="../static/images/verification_badge.png" alt="verification badge"></h2> 
+                <p class="text-secondary">Join date: {{ session['created_at'] }}</p>
+                <span class="d-grid gap-2">
+                    <a href="https://myaccount.google.com/profile" target="_blank"><button class="btn btn-primary edit-bio" type="button">Edit profile info</button></a>
+                </span>
+                <span class="d-grid gap-2">
+                    <a href="/logout"><button class="btn btn-primary edit-bio" type="button">Log out</button></a>
+                </span>
+                <h3 class="bio">Bio</h3>
+                <div class="bio-text">Owner and founder of Tongify.</div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary edit-bio" type="button">Edit bio</button>
+                </div>
+                <h3 class="find_me">Find me:</h3>
+                <div class="find_me_links">
+                    <h6>GitHub: www.github.com/mokhtarmramadan</h6>
+                    <h6>Telegram: www.telegram.com/telegramme</h6>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary edit-bio" type="button">Edit find me</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section profile">
+        <div class="media">
+            <div class="media-body profile">
+                <h3>Posts by Mokhtar</h3>
+            </div>
+        </div>
+    </div>
+        <!-- <form method="POST" action="" enctype="multipart/form-data">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    
+                </div>
+                <div class="form-group">
+                   
+                </div>
+                <div class="form-group">
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <h1>hi</h1>
+            </div>
+        </form> -->
+    </div>
+{% endblock content %}

@@ -1,12 +1,123 @@
 #!/usr/bin/python3
 """ Starts a Flash Web Application """
+from functools import wraps
+from flask import Flask, render_template, session, abort, redirect, request, jsonify
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+import google.auth.transport.requests
+import json
 from models import storage
 from models.user import User
 from models.post import Post
+import os
 from os import environ
-from flask import Flask, render_template
+import pathlib
+from pip._vendor import cachecontrol
+import requests
 import uuid
+
+
 app = Flask(__name__)
+app.secret_key = 'tongifybaSNMKrw_69EG?d'
+
+
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+GOOGLE_CLIENT_ID = '968902510628-ebukr2p3fa8olcij13mpalotarrsa0in.apps.googleusercontent.com'
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "google.json") 
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/callback"
+)
+
+
+def login_is_required(function):
+    ''' A decorator added to routes to ensure credential presence '''
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        ''' Returns 401 unauthorized if not login '''
+        if "google_id" not in session:
+            return redirect('/login')
+        else:
+            return function()
+    return wrapper
+
+
+@app.route("/login")
+def login():
+    ''' Opens authorization menue to authorize user '''
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+
+@app.route("/callback")
+def callback():
+    ''' fetchs token and credentials and POSTS them to the create user API '''
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+
+    if id_info.get("email_verified"):
+        ''' If google authenticates the email '''
+        user = storage.user_id_by_email(id_info.get('email'))
+        user_data = {
+            "username": id_info.get("name"),
+            "email": id_info.get("email"),
+            "image": id_info.get("picture")
+        }
+        if user is None:
+            ''' User has not registered his email to our database "create a new user" '''
+            user_url = 'http://0.0.0.0:5050/api/v1/users'
+            response = requests.post(user_url, json=user_data)
+            if response.status_code == 201:
+                data = response.json()
+                session["google_id"] = id_info.get("sub")
+                session["user_id"] = data['id']
+                session['username'] = data['username']
+                session['cam'] = data['cam']
+                session['chat'] = data['chat']
+                session['created_at'] = return_date_only(data['created_at'])
+                session['image'] = data['image']
+                session['mic'] = data['mic']
+                session['vip'] = data['vip']
+        else:
+            ''' User has his email registered already "update user info " '''
+            del user_data['email']
+            user_id = user.id
+            user_url = f'http://0.0.0.0:5050/api/v1/users/{user_id}'
+            response = requests.put(user_url, json=user_data)
+            if response.status_code == 200:
+                session["google_id"] = id_info.get("sub")
+                session['user_id'] = user_id
+                session['username'] = user.username
+                session['cam'] = user.cam
+                session['chat'] = user.chat
+                session['created_at'] = return_date_only(user.created_at)
+                session['image'] = user.image
+                session['mic'] = user.mic
+                session['vip'] = user.vip
+    return redirect('/')
+
+
+@app.route("/logout")
+def logout():
+    ''' Clears current session '''
+    session.clear()
+    return redirect("/")
 
 
 @app.teardown_appcontext
@@ -16,10 +127,39 @@ def close_db(error):
 
 
 @app.route('/', strict_slashes=False)
-def tongify():
-    """ tongify API """
+def rooms():
+    """ Tongify rooms API """
+    if 'google_id' in session and 'user_id' in session:
+        this_user = storage.get("User", session['user_id'])
+        profile_picture = this_user.image
+    else:
+        profile_picture = None
+    return render_template("/home.html", profile_picture=profile_picture, cash_id=uuid.uuid4())
+
+@app.route('/posts', strict_slashes=False)
+@login_is_required
+def posts():
+    """ Tongify posts API """
     posts = storage.all("Post").values()
-    return render_template('posts.html', posts=posts, cash_id=uuid.uuid4())
+    this_user = storage.get("User", session['user_id'])
+    profile_picture = this_user.image
+    return render_template('posts.html', session=session, posts=posts, cash_id=uuid.uuid4())
+
+
+@app.route('/random', strict_slashes=False)
+@login_is_required
+def random():
+    """ Tongify random-call route """
+    this_user = storage.get("User", session['user_id'])
+    profile_picture = this_user.image
+    return render_template('random.html', profile_picture=profile_picture, cash_id=uuid.uuid4())
+
+
+@app.route('/profile', strict_slashes=False)
+@login_is_required
+def profile():
+    return render_template('profile.html', session=session, cash_id=uuid.uuid4())
+
 
 def get_username(user_id):
     " gets username by user_id "
@@ -27,6 +167,7 @@ def get_username(user_id):
     if user is not None:
         return user.username
     return "Unkown"
+
 
 def format_time(post_id):
     " Format time "
@@ -60,7 +201,6 @@ def format_time(post_id):
                 return 'An hour ago.'
             else:
                 return f'{hours_ago} hours ago.'
-
     else:
         post_year, post_month, post_day = post_date.split('-')
         today_year, today_month, today_day = today_date.split('-')
@@ -85,6 +225,9 @@ def format_time(post_id):
                 return 'A year ago.'
             else:
                 return f'{years_ago} years ago.'
+            
+def return_date_only(created_at):
+    return created_at.strftime("%a, %d %b %Y")
 
 # Make functions global so that all templates can access them
 app.add_template_global(get_username, 'get_username')

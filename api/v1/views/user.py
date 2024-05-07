@@ -43,13 +43,11 @@ def delete_user(user_id):
 def create_user():
     """ Creates a User """
     if not request.get_json() or not request.is_json:
-        abort(400, 'Not a JSON')
+        abort(440, 'Not a JSON')
     if request.headers.get('Content-Type') != 'application/json':
-        abort(400)
+        abort(440)
     if 'username' not in request.get_json():
         abort(400, 'Missing name')
-    if 'password' not in request.get_json():
-        abort(400, 'Missing password')
     if 'email' not in request.get_json():
         abort(400, "Missing email")
     new_user = User()
