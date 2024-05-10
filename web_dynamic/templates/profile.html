@@ -31,7 +31,7 @@
     <div class="content-section profile">
         <div class="media">
             <div class="media-body profile">
-                <h3>Posts by Mokhtar</h3>
+                <h3>Posts by Mokhtar <button class="profile_posts_button"><img class="profile_posts_image" src="../static/images/greater-than-symbol.png"></button></h3>
             </div>
         </div>
     </div>
@@ -52,4 +52,21 @@
             </div>
         </form> -->
     </div>
+    <script>
+    $(document).ready(init);
+
+    function init() {
+        $(".profile_posts_button").click(function() {
+            if($(".profile_posts_image").hasClass("open")) {
+                $(".profile_posts_image").removeClass("open");
+                $(".profile_posts_image").attr("src", "../static/images/greater-than-symbol.png");
+            }
+            else {
+                $(".profile_posts_image").attr("src", "../static/images/down-greater-than.png");
+                $(".profile_posts_image").addClass("open")
+                // Render posts 
+            }
+    });
+    }
+</script>
 {% endblock content %}

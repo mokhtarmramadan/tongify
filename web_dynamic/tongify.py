@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Starts a Flash Web Application """
+import datetime
 from functools import wraps
 from flask import Flask, render_template, session, abort, redirect, request, jsonify
 from google.oauth2 import id_token
@@ -90,7 +91,7 @@ def callback():
                 session['username'] = data['username']
                 session['cam'] = data['cam']
                 session['chat'] = data['chat']
-                session['created_at'] = return_date_only(data['created_at'])
+                session['created_at'] = data['created_at']
                 session['image'] = data['image']
                 session['mic'] = data['mic']
                 session['vip'] = data['vip']
@@ -106,7 +107,7 @@ def callback():
                 session['username'] = user.username
                 session['cam'] = user.cam
                 session['chat'] = user.chat
-                session['created_at'] = return_date_only(user.created_at)
+                session['created_at'] = user.created_at
                 session['image'] = user.image
                 session['mic'] = user.mic
                 session['vip'] = user.vip
@@ -129,12 +130,8 @@ def close_db(error):
 @app.route('/', strict_slashes=False)
 def rooms():
     """ Tongify rooms API """
-    if 'google_id' in session and 'user_id' in session:
-        this_user = storage.get("User", session['user_id'])
-        profile_picture = this_user.image
-    else:
-        profile_picture = None
-    return render_template("/home.html", profile_picture=profile_picture, cash_id=uuid.uuid4())
+
+    return render_template("/home.html", title="Home", session=session, cash_id=uuid.uuid4())
 
 @app.route('/posts', strict_slashes=False)
 @login_is_required
@@ -143,7 +140,7 @@ def posts():
     posts = storage.all("Post").values()
     this_user = storage.get("User", session['user_id'])
     profile_picture = this_user.image
-    return render_template('posts.html', session=session, posts=posts, cash_id=uuid.uuid4())
+    return render_template('posts.html', session=session, title="Posts", posts=posts, cash_id=uuid.uuid4())
 
 
 @app.route('/random', strict_slashes=False)
@@ -152,13 +149,13 @@ def random():
     """ Tongify random-call route """
     this_user = storage.get("User", session['user_id'])
     profile_picture = this_user.image
-    return render_template('random.html', profile_picture=profile_picture, cash_id=uuid.uuid4())
+    return render_template('random.html',  title="Random",profile_picture=profile_picture, cash_id=uuid.uuid4())
 
 
 @app.route('/profile', strict_slashes=False)
 @login_is_required
 def profile():
-    return render_template('profile.html', session=session, cash_id=uuid.uuid4())
+    return render_template('profile.html',  title="Profile",session=session, cash_id=uuid.uuid4())
 
 
 def get_username(user_id):
@@ -225,9 +222,7 @@ def format_time(post_id):
                 return 'A year ago.'
             else:
                 return f'{years_ago} years ago.'
-            
-def return_date_only(created_at):
-    return created_at.strftime("%a, %d %b %Y")
+
 
 # Make functions global so that all templates can access them
 app.add_template_global(get_username, 'get_username')

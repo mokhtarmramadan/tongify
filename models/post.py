@@ -10,7 +10,7 @@ class Post(BaseModel, Base):
 
     title = Column(String(35), nullable=False)
     content = Column(String(140), nullable=False)
-    user_id = Column(String(17), ForeignKey('users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     
     # Define the relationship between User and Post
     user = relationship("User", back_populates="posts")

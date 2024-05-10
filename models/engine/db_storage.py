@@ -4,11 +4,12 @@ import models
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.post import Post
+from models.user_urls import User_urls
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-classes = {"User": User, "Post": Post}
+classes = {"User": User, "Post": Post, "User_urls": User_urls}
 
 class DBStorage():
     __engine = None
