@@ -40,14 +40,14 @@ def delete_post(post_id=None, user_id=None):
         abort(404)
     storage.delete(post)
     storage.save()
-    return jsonify({})
+    return jsonify({}), 200
 
 
 @app_view.route('/users/<user_id>/posts', strict_slashes=False, methods=['POST'])
 def create_post(user_id=None):
     """ Creates a post """
     if user_id is None:
-        abort(404)
+        abort(404, "missing user_id")
     if not request.get_json() or not request.is_json:
         abort(400, 'Not a JSON')
     if request.headers.get('Content-Type') != 'application/json':

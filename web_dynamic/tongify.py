@@ -58,8 +58,9 @@ def callback():
     ''' fetchs token and credentials and POSTS them to the create user API '''
     flow.fetch_token(authorization_response=request.url)
 
-    if not session["state"] == request.args["state"]:
-        abort(500)  # State does not match!
+    if session["state"]:
+            if not session["state"] == request.args["state"]:
+                abort(500)  # State does not match!
 
     credentials = flow.credentials
     request_session = requests.session()
@@ -224,9 +225,18 @@ def format_time(post_id):
                 return f'{years_ago} years ago.'
 
 
+def get_image(user_id):
+    " gets user image by user_id "
+    user = storage.get("User", user_id)
+    if user is not None:
+        return user.image
+    return "Unkown"
+
 # Make functions global so that all templates can access them
 app.add_template_global(get_username, 'get_username')
 app.add_template_global(format_time, "format_time")
+app.add_template_global(get_image, "get_image")
+
 
 if __name__ == "__main__":
     """ Main Function """

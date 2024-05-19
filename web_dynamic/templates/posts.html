@@ -6,11 +6,14 @@
                 <article class="media content-section">
                     <div class="media-body post_body">
                         <div class="article-metadata">
+                            <img class="rounded-circle post_image" src="{{ get_image(post.user_id) }}">
                             <a class="mr-2" href="#">{{ get_username(post.user_id)}}</a>
                             <small class="text-muted">{{ format_time(post.id) }}</small>
                         </div>
-                        <h2 class="article-title">{{ post.title }}</h2>
-                        <p class="article-content">{{ post.content }}</p>
+                        <div class="actual_post">
+                            <h4 class="article-title">{{ post.title }}</h4>
+                            <p class="article-content">{{ post.content }}</p>
+                        </div>
                     </div>
                 </article>
             </div>

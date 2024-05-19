@@ -92,17 +92,24 @@ body {
 .media-body {
   background-color: #34373a;
   padding: 10px;
-  border: 1px solid #202327;
-  transition: all 0.5s ease;
+  border: 1px dashed #202327;
+}
+
+.post_body {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
 .post_body:hover {
-  transform: scale(1.1);
   border-color: #198754;
 }
 
 .article-metadata {
-  border-bottom: 1px solid #202327;
+  position: relative;
+  left: 9px;
+  top: 13px;
 }
 
 .text-muted {
@@ -122,13 +129,29 @@ body {
 .article-title {
   color: white;
   text-decoration: none;
+  white-space: normal;
 }
 
 .article-content {
   color: white;
+  white-space: normal;
 }
 
+.post_image {
+  height: 55px;
+  width: 55px;
 
+}
+
+.actual_post {
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 15px;
+  position: relative;
+  left: 76px;
+  padding: 15px;
+}
 
 /* Profile  */
 
@@ -155,7 +178,7 @@ h2 .verification_badge {
   height: 30px;
 }
 
-.edit-bio {
+.profile_btn {
   background-color: #4d5053;
   border: none;
   margin-bottom: 30px;
@@ -163,7 +186,7 @@ h2 .verification_badge {
   margin-right: 2%;
 }
 
-.edit-bio:hover {
+.profile_btn:hover {
   background-color: #66696c;
 }
 
@@ -171,6 +194,11 @@ h2 .verification_badge {
   position: relative;
   left: 30px;
 }
+
+/* .posts_by_div h3 {
+  position: relative;
+  left: 300px;
+} */
 
 .profile_posts_button {
   float: right;
@@ -183,4 +211,119 @@ h2 .verification_badge {
   height: 25px;
   width: 25px;
 
+}
+
+.posts_by {
+  max-width: 600px;
+}
+
+.profile_post {
+  border: none;
+}
+
+.profile_post {
+  border: 1px dashed #198754;
+}
+
+.hide {
+  display: none;
+}
+
+.danger-button {
+  background-color: #dc3545;
+}
+
+.danger-button:hover {
+  background-color: #9c2e38;
+}
+
+#create-post-form-overlay, #update-post-form-overlay, #bio-post-form-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  z-index: 999; /* Ensure the overlay is on top */
+}
+
+#post-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+}
+
+
+/* Form  */
+
+#create-post-form-overlay #update-post-form-overlay {
+  width: 100%;
+}
+
+#post-form {
+  background-color: #34373a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; 
+  max-width: 500px;
+}
+
+
+.post-form {
+  width: 100%;
+}
+
+.form-label {
+  color: white;
+}
+
+.post_feild {
+  background-color: #4d5053;
+  color: white;
+}
+
+.post_feild:hover,
+.post_feild:focus {
+  background-color: #4d5053;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  color: white;
+}
+
+.post_feild:not(:focus) {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+#create-content-feild, #update-content-feild, #bio-content-feild {
+  display: flex;
+  height: 200px;
+  width: 100%; /* Changed width to be 100% */
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+textarea {
+  vertical-align: top;
+}
+
+#create-form-btn, #cancel-form-btn, #update-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn {
+  width: calc(50% - 5px); /* Subtracting 5px for margin */
+}
+
+#cancel-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn {
+  background-color: #4d5053;
+  border: none;
+}
+
+.text-limit-title, .text-limit-content {
+  color: red;
+  font-style: italic;
 }
