@@ -20,11 +20,11 @@
         <div id="post-form">
             <form class="post-form">
                 <div class="mb-3">
-                <label class="form-label">Bio</label><p class="text-limit-title">Maximum title length is 85 characters</p>
-                <textarea type="text" class="form-control post_feild" id="bio-content-feild"></textarea>
+                    <label class="form-label">Bio</label><p class="text-limit-title">Maximum title length is 85 characters</p>
+                    <textarea type="text" class="form-control post_feild" id="bio-content-feild"></textarea>
                 </div>
                 <div class="btn btn-primary" id="bio-cancel-form-btn">Cancel</div>
-                <button type="submit" class="btn btn-primary" id="create-form-btn">Done</button>
+                <div type="submit" class="btn btn-primary" id="create-bio-btn">Done</div>
             </form>
         </div>
     </div>
@@ -32,210 +32,78 @@
         <div id="post-form">
             <form class="post-form">
                 <div class="mb-3">
-                <label class="form-label">Title</label><p class="text-limit-title">Maximum title length is 35 characters</p>
-                <input type="text" class="form-control post_feild" id="update-title-feild" aria-describedby="emailHelp">
+                    <label class="form-label">Title</label><p class="text-limit-title">Maximum title length is 35 characters</p>
+                    <input type="text" class="form-control post_feild" id="update-title-feild" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                <label class="form-label">Content</label><p class ="text-limit-content">Maximum content length is 140 characters</p>
-                <textarea type="text" class="form-control post_feild" id="update-content-feild"></textarea>
+                    <label class="form-label">Content</label><p class ="text-limit-content">Maximum content length is 140 characters</p>
+                    <textarea type="text" class="form-control post_feild" id="update-content-feild"></textarea>
                 </div>
                 <div class="btn btn-primary" id="cancel-update-form-btn">Cancel</div>
                 <div type="submit" class="btn btn-primary" id="update-form-btn">Update</div>
             </form>
         </div>
     </div>
-        <div class="content-section profile">
-            <div class="media">
-                <div class="media-body profile">
-                    <img class="rounded-circle account-img" src="{{ session['image'] }}">
-                    <h2 class="account-heading">{{ session['username'] }} <img class="verification_badge" src="../static/images/verification_badge.png" alt="verification badge"></h2> 
-                    <p class="text-secondary">Join date: {{ session['created_at'] }}</p>
-                    <span class="d-grid gap-2">
-                        <a href="https://myaccount.google.com/profile" target="_blank"><button class="btn btn-primary profile_btn" type="button">Edit profile info</button></a>
-                        <a href="/logout"><button class="btn btn-primary profile_btn" type="button">Log out</button></a>
-                    </span>
-                    <h3 class="bio">Bio</h3>
-                    <div class="bio-text">Owner and founder of Tongify.</div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary profile_btn" id="edit-bio" type="button">Edit bio</button>
+
+    <div id="delete-post-form-overlay">
+        <div id="post-form">
+            <div class="mb-3">
+                <label class="form-label">Sure to delete?</label>
+            </div>
+            <div class="btn btn-primary" id="cancel-delete-form-btn">Cancel</div>
+            <div type="submit" class="btn btn-primary danger-button" id="delete-form-btn">Done</div>
+        </div>
+    </div>
+ 
+
+    <div class="content-section profile">
+        <div class="media">
+            <div class="media-body profile">
+                <img class="rounded-circle account-img" src="{{ session['image'] }}">
+                <h2 class="account-heading">{{ session['username'] }} <img class="verification_badge" src="../static/images/verification_badge.png" alt="verification badge"></h2> 
+                <p class="text-secondary" id="join_date">Join date: {{ session['created_at'] }}</p>
+                <div class="d-grid gap-2">
+                    <div class="button-container d-flex gap-2 justify-content-end">
+                        <a href="https://myaccount.google.com/profile" target="_blank"><button class="btn btn-primary edit-profile-btn" type="button">Edit profile info</button></a>
+                        <a href="/logout"><button class="btn btn-primary danger-button" type="button">Log out</button></a>
                     </div>
-                    <h3 class="find_me">Find me:</h3>
-                    <div class="find_me_links">
-                        <h6>GitHub: www.github.com/mokhtarmramadan</h6>
-                        <h6>Telegram: www.telegram.com/telegramme</h6>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary profile_btn" type="button">Edit find me</button>
+                </div>
+                <h3 class="bio">Bio</h3>
+                <div class="bio-text">{{ bio }}</div>
+                <div class="d-grid gap-2">
+                    <div class="button-container d-flex gap-2 justify-content-end"> 
+                        <button class="btn btn-primary profile_btn " type="button" id="edit-bio">Edit</button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="content-section profile">
-            <div class="media">
-                <div class="media-body profile">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary profile_btn create_post_btn" type="button">+&nbsp&nbsp&nbspCreate post</button>
-                    </div>
-                    <div class="posts_by_div">
-                        <h3 class=>Veiw account posts<button class="profile_posts_button"><img class="profile_posts_image" src="../static/images/greater-than-symbol.png"></button></h3>
-                    </div>
+    </div>
+    
+    <div class="content-section profile">
+        <div class="media">
+            <div class="media-body profile">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary profile_btn create_post_btn" type="button">+&nbsp&nbsp&nbspCreate post</button>
+                </div>
+                <div class="posts_by_div">
+                    <h3 class=>Veiw account posts<button class="profile_posts_button"><img class="profile_posts_image" src="../static/images/greater-than-symbol.png"></button></h3>
                 </div>
             </div>
         </div>
-        <div class="content-section profile">
-            <div class="media posts">
-            </div>
+    </div>
+    <div class="content-section profile">
+        <div class="media posts">
         </div>
+    </div>
 
     <script>
-        $(document).ready(init);
-        let userPosts = [];
-        function init() {
-            // user Info 
-            const user_id = "{{ session['user_id'] }}";
-            const username = "{{ session['username']}}";
-            const userImage = "{{ session['image']}}";
-
-            $("#edit-bio").click(function() {
-                $("#bio-post-form-overlay").toggle();
-            });
-            $("#bio-cancel-form-btn").click(function () {
-                    $("#bio-post-form-overlay").toggle();
-            });
-            $(".create_post_btn").click(function() {
-                $("#create-post-form-overlay").toggle();
-            }); 
-
-            $("#cancel-form-btn").click(function() {
-                $("#create-post-form-overlay").toggle();
-            });
-            $("#cancel-update-form-btn").click(function() {
-                $("#update-post-form-overlay").toggle();
-            });
-            
-            $("#create-form-btn").click(function() {
-                var title = $(".post_feild").val();
-                var content = $("#create-content-feild").val();
-
-                if (title.length >= 35) {
-                    $(".text-limit-title").css('display', 'block');
-                } else if (content.length >= 140) {
-                    $(".text-limit-content").css('display', 'block');
-                }
-                else {
-                    $(".text-limit-title").css('display', 'none');
-                    $(".text-limit-content").css('display', 'none');
-                    const data = {
-                        "title": title,
-                        "content": content,
-                        "user_id": user_id
-                    };
-                    $.ajax({
-                        url: `http://192.168.1.18:5050/api/v1/users/${user_id}/posts`,
-                        type: 'POST',
-                        data: JSON.stringify(data),
-                        contentType: 'application/json',
-                        success: function(response) {
-                            if (response.status === 201) {
-                                console.log("done");
-                                location.reload();
-                                // Try to open the post section afterwards
-
-                            } else {
-                                console.error("Error:", response.statusText);
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("Error:", textStatus, errorThrown);
-                        }
-                    });
-                }
-            });
-
-            let requested = false;
-
-            $(".profile_posts_button").click(function() {
-                // when the load posts icon is clicked 
-                if ($(".profile_posts_image").hasClass("open")) {
-                    // If it's clicked to close
-                    $(".profile_posts_image").removeClass("open");
-                    $(".profile_posts_image").attr("src", "../static/images/greater-than-symbol.png");
-                    $(".posts").addClass("hide");
-                } else {
-                    // If it's clicked to open
-                    $(".profile_posts_image").attr("src", "../static/images/down-greater-than.png");
-                    $(".profile_posts_image").addClass("open");
-                    $(".posts").removeClass("hide");
-
-                    // Render posts by that user
-                    if (requested === false) {
-                        // Send request has been sent before don't send more
-                        $.get(`http://192.168.1.18:5050/api/v1/users/${user_id}/posts`, function(posts, textStatus) {
-                            // Send a get request to this end-point to retrieve posts by user
-                            if (textStatus == 'success') {
-                                requested = true; // Set flag
-                                posts.forEach(function(post) {
-                                    const postHTML = `
-                                        <div class="media-body profile">
-                                            <div class="media-body profile_post">
-                                                <div class="article-metadata">
-                                                    <img class="rounded-circle post_image" src="${userImage}">
-                                                    <a class="mr-2" id="post_username" href="#">${username}</a>
-                                                    <small class="text-muted">${post.created_at}</small>
-                                                </div>
-                                                <div class="actual_post">
-                                                    <h4 class="article-title">${post.title}</h4>
-                                                    <p class="article-content">${post.content}</p>
-                                                </div>
-                                                <div class="button-container d-flex gap-2 justify-content-end"> 
-                                                    <div name=${post.id} class="btn btn-primary profile_btn update-btn">Update</div>
-                                                    <div name=${post.id} class="btn btn-primary profile_btn danger-button delete-btn">Delete</div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                                        userPosts[post.id] = {'title': post.title, 'content': post.content};
-                                    $(".posts").append(postHTML);
-                                });
-                                $(".delete-btn").click(function() {
-                                    const post_id = $(".delete-btn").attr('name');
-                                    $.ajax({
-                                        url: `http://192.168.1.18:5050/api/v1/users/${user_id}/posts/${post_id}`,
-                                        type: 'DELETE',
-                                        success: function(response) {
-                                            location.reload();
-
-                                        }
-                                    });
-                                });
-                                let updatePostId = '';
-                                $(".update-btn").click(function(){
-                                    $("#update-post-form-overlay").toggle();
-                                    updatePostId = $(this).attr('name');
-                                    const thisPost = userPosts[updatePostId];
-                                    const postTitle = thisPost.title;
-                                    const postContent = thisPost.content;
-                                    $("#update-title-feild").val(postTitle);
-                                    $("#update-content-feild").val(postContent);
-                                });
-                                $("#update-form-btn").click(function() {
-                                    const post_data = {'title': $("#update-title-feild").val(), 'content': $("#update-content-feild").val()}
-                                    $.ajax({
-                                        url: `http://192.168.1.18:5050/api/v1/users/${user_id}/posts/${updatePostId}`,
-                                        type: 'PUT',
-                                        data: JSON.stringify(post_data),
-                                        contentType: 'application/json',
-                                        success: function(response) {
-                                            location.reload();
-                                        },
-                                    });
-
-                                });
-                            }
-                        });
-                    }
-                }
-            });
-        }
+        // user Info 
+        const userId = '{{ session["user_id"] }}';
+        let userName = '{{ session["username"] }}';
+        let userImage = '{{ session["image"] }}';
+        let bio = '{{ bio }}';
     </script>
+    <!-- Jquery file  -->
+    <script src="{{ url_for('static', filename='scripts/profile.js') }}"></script>
+
 {% endblock content %}

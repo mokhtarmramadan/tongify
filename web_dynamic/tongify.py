@@ -58,10 +58,6 @@ def callback():
     ''' fetchs token and credentials and POSTS them to the create user API '''
     flow.fetch_token(authorization_response=request.url)
 
-    if session["state"]:
-            if not session["state"] == request.args["state"]:
-                abort(500)  # State does not match!
-
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
@@ -90,12 +86,9 @@ def callback():
                 session["google_id"] = id_info.get("sub")
                 session["user_id"] = data['id']
                 session['username'] = data['username']
-                session['cam'] = data['cam']
-                session['chat'] = data['chat']
                 session['created_at'] = data['created_at']
                 session['image'] = data['image']
-                session['mic'] = data['mic']
-                session['vip'] = data['vip']
+    
         else:
             ''' User has his email registered already "update user info " '''
             del user_data['email']
@@ -106,13 +99,10 @@ def callback():
                 session["google_id"] = id_info.get("sub")
                 session['user_id'] = user_id
                 session['username'] = user.username
-                session['cam'] = user.cam
-                session['chat'] = user.chat
                 session['created_at'] = user.created_at
                 session['image'] = user.image
-                session['mic'] = user.mic
-                session['vip'] = user.vip
-    return redirect('/')
+
+    return redirect('/profile')
 
 
 @app.route("/logout")
@@ -129,10 +119,9 @@ def close_db(error):
 
 
 @app.route('/', strict_slashes=False)
-def rooms():
+def index():
     """ Tongify rooms API """
-
-    return render_template("/home.html", title="Home", session=session, cash_id=uuid.uuid4())
+    return render_template("index.html")
 
 @app.route('/posts', strict_slashes=False)
 @login_is_required
@@ -156,8 +145,8 @@ def random():
 @app.route('/profile', strict_slashes=False)
 @login_is_required
 def profile():
-    return render_template('profile.html',  title="Profile",session=session, cash_id=uuid.uuid4())
-
+    user = storage.get('User', session['user_id'])
+    return render_template('profile.html',  bio=user.bio, title="Profile",session=session, cash_id=uuid.uuid4())
 
 def get_username(user_id):
     " gets username by user_id "

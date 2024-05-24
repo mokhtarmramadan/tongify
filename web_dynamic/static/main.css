@@ -11,36 +11,10 @@ body {
   border-bottom: 1px solid #198754;
 }
 
-.navbar-brand, .nav-link {
-  color: white;
-}
-
-.active {
-  color: #198754 !important;
-}
-
-.form-control {
-  background-color: #34373a;
-  border: 1px solid transparent;
-  color: white;
-}
-
-.form-control::placeholder {
-  color: #000000;
-  font-size: 14px !important;
-}
-
-.navbar .form-control:focus {
-  background-color: #34373a;
-  box-shadow: none;
-  border-color: #198754 !important;
-  color: white;
-}
-
 .avatar {
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-left: auto;
   border-radius: 50px;
   padding: 5px 10px;
 }
@@ -58,28 +32,11 @@ body {
   margin-right: 5px;
 }
 
-.nav-link:hover {
-  color: #198754;
-}
-
-.brand {
+.navbar-brand {
+  margin-right: auto;
   color: white;
-}
-.navbar-toggler:focus {
-  border: 1px solid #198754;
-  box-shadow: none !important;
-}
 
-.navbar-toggler-icon {
-  background-image: url(images/controls.png);
 }
-
-.col {
-  background-color: #34373a;
-  color: aliceblue;
-  padding: 10px;
-}
-
 
 
 /* Post */
@@ -190,15 +147,19 @@ h2 .verification_badge {
   background-color: #66696c;
 }
 
+.edit-profile-btn {
+  background-color: #4d5053;
+  border: none;
+}
+
+.edit-profile-btn:hover {
+  background-color: #66696c;
+}
+
 .find_me_links {
   position: relative;
   left: 30px;
 }
-
-/* .posts_by_div h3 {
-  position: relative;
-  left: 300px;
-} */
 
 .profile_posts_button {
   float: right;
@@ -231,13 +192,14 @@ h2 .verification_badge {
 
 .danger-button {
   background-color: #dc3545;
+  border: none;
 }
 
 .danger-button:hover {
   background-color: #9c2e38;
 }
 
-#create-post-form-overlay, #update-post-form-overlay, #bio-post-form-overlay {
+#create-post-form-overlay, #update-post-form-overlay, #bio-post-form-overlay, #update-find-me-form-overlay, #delete-post-form-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -260,7 +222,7 @@ h2 .verification_badge {
 
 /* Form  */
 
-#create-post-form-overlay #update-post-form-overlay {
+#create-post-form-overlay, #update-post-form-overlay, #update-find-me-form-overlay, #delete-post-form-overlay {
   width: 100%;
 }
 
@@ -314,11 +276,11 @@ textarea {
   vertical-align: top;
 }
 
-#create-form-btn, #cancel-form-btn, #update-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn {
+#create-form-btn, #cancel-form-btn, #update-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn, #create-bio-btn, #find-me-cancel-form-btn, #cancel-delete-form-btn, #delete-form-btn {
   width: calc(50% - 5px); /* Subtracting 5px for margin */
 }
 
-#cancel-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn {
+#cancel-form-btn, #cancel-update-form-btn, #bio-cancel-form-btn, #find-me-cancel-form-btn, #cancel-delete-form-btn {
   background-color: #4d5053;
   border: none;
 }
@@ -326,4 +288,16 @@ textarea {
 .text-limit-title, .text-limit-content {
   color: red;
   font-style: italic;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+}
+.form-control {
+  display: inline-block;
+}
+
+.col-3 {
+  margin-right: 10px;
 }
