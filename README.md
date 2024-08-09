@@ -1,5 +1,5 @@
 # Background Context
-## Welcome to the Tongify clone project!
+## Welcome to the Tongify project!
 
 First step: A command interpreter to manage the project's objects.
 This is the first step towards building Tongify. This first step is very important because I will use what I build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
